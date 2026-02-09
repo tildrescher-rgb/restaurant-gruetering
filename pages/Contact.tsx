@@ -1,5 +1,7 @@
 import React from 'react';
-import { MapPin, Phone, Clock } from 'lucide-react';
+import { MapPin, Phone, Clock, Mail } from 'lucide-react';
+import { IMAGES } from '../data/images';
+import { CONTACT } from '../data/contact';
 
 const Contact: React.FC = () => {
   return (
@@ -16,46 +18,69 @@ const Contact: React.FC = () => {
         </div>
 
         <div className="space-y-8">
-          <div className="flex items-start space-x-4">
-            <MapPin className="text-gruetering-gold mt-1 shrink-0" size={20} />
+          {/* Address */}
+          <div className="flex items-start space-x-4 group">
+            <MapPin className="text-gruetering-gold mt-1 shrink-0 group-hover:scale-110 transition-transform" size={20} />
             <div>
-              <p className="text-gruetering-text">Restaurant Grütering</p>
-              <p className="text-gruetering-muted text-sm">Musterstraße 42<br />48149 Münster</p>
+              <p className="text-gruetering-text font-medium">Restaurant Grütering</p>
+              <a 
+                href={CONTACT.address.mapsLink}
+                target="_blank"
+                rel="noreferrer"
+                className="text-gruetering-muted text-sm hover:text-gruetering-gold transition-colors"
+              >
+                {CONTACT.address.street}<br />{CONTACT.address.city}
+              </a>
             </div>
           </div>
 
-          <div className="flex items-start space-x-4">
-            <Phone className="text-gruetering-gold mt-1 shrink-0" size={20} />
+          {/* Phone */}
+          <div className="flex items-start space-x-4 group">
+            <Phone className="text-gruetering-gold mt-1 shrink-0 group-hover:scale-110 transition-transform" size={20} />
             <div>
-              <p className="text-gruetering-text">+49 251 123456</p>
+              <a href={CONTACT.phone.link} className="text-gruetering-text hover:text-gruetering-gold transition-colors block">
+                {CONTACT.phone.display}
+              </a>
               <p className="text-gruetering-muted text-sm">Ab 16:00 Uhr erreichbar</p>
             </div>
           </div>
 
+          {/* Email */}
+          <div className="flex items-start space-x-4 group">
+            <Mail className="text-gruetering-gold mt-1 shrink-0 group-hover:scale-110 transition-transform" size={20} />
+            <div>
+              <a href={`mailto:${CONTACT.email}`} className="text-gruetering-text hover:text-gruetering-gold transition-colors">
+                {CONTACT.email}
+              </a>
+              <p className="text-gruetering-muted text-sm">Für Anfragen & Feedback</p>
+            </div>
+          </div>
+
+          {/* Opening Hours */}
           <div className="flex items-start space-x-4">
             <Clock className="text-gruetering-gold mt-1 shrink-0" size={20} />
             <div>
-              <p className="text-gruetering-text">Öffnungszeiten</p>
-              <p className="text-gruetering-muted text-sm mt-1">
-                Mi - Sa: 18:00 - 23:00 Uhr<br />
-                So: 12:00 - 15:00 & 18:00 - 22:00 Uhr<br />
-                Mo & Di: Ruhetag
-              </p>
+              <p className="text-gruetering-text mb-1">Öffnungszeiten</p>
+              <div className="text-gruetering-muted text-sm space-y-1">
+                <p><span className="w-24 inline-block text-gruetering-stone">Mo:</span> {CONTACT.hours.monday}</p>
+                <p><span className="w-24 inline-block text-gruetering-stone">Di - Sa:</span> {CONTACT.hours.tue_sat}</p>
+                <p><span className="w-24 inline-block text-gruetering-stone">So:</span> {CONTACT.hours.sunday}</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Visual Map Placeholder - Styled darker */}
+      {/* Visual Map Placeholder */}
       <div className="w-full h-96 bg-gruetering-stone/20 rounded-sm relative overflow-hidden border border-gruetering-stone/30 group">
          <img 
-            src="https://picsum.photos/800/800?grayscale" 
+            src={IMAGES.CONTACT_MAP}
             alt="Karte" 
             className="w-full h-full object-cover opacity-30 mix-blend-overlay group-hover:opacity-40 transition-opacity duration-500"
          />
          <div className="absolute inset-0 flex items-center justify-center">
             <a 
-              href="https://maps.google.com" 
+              href={CONTACT.address.mapsLink}
               target="_blank" 
               rel="noreferrer"
               className="px-6 py-2 border border-gruetering-gold text-gruetering-gold text-xs tracking-widest hover:bg-gruetering-gold hover:text-gruetering-black transition-colors"

@@ -1,10 +1,9 @@
 import { GoogleGenAI } from "@google/genai";
 
-const apiKey = process.env.API_KEY || '';
-const ai = new GoogleGenAI({ apiKey });
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export const getSommelierRecommendation = async (dishName: string): Promise<string> => {
-  if (!apiKey) return "Unser Sommelier ist derzeit beschäftigt. Bitte fragen Sie unser Servicepersonal.";
+  if (!process.env.API_KEY) return "Unser Sommelier ist derzeit beschäftigt. Bitte fragen Sie unser Servicepersonal.";
 
   try {
     const response = await ai.models.generateContent({

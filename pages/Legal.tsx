@@ -1,25 +1,26 @@
 import React from 'react';
+import { CONTACT } from '../data/contact';
 
 export const Imprint: React.FC = () => (
   <div className="max-w-2xl mx-auto space-y-8 animate-fade-in text-gruetering-muted font-light text-sm">
     <h2 className="font-serif text-2xl text-gruetering-gold mb-8">Impressum</h2>
     <p>
-      Restaurant Grütering GmbH<br/>
-      Musterstraße 42<br/>
-      48149 Münster
+      Restaurant Grütering<br/>
+      {CONTACT.address.street}<br/>
+      {CONTACT.address.city}
     </p>
     <p>
       Vertreten durch:<br/>
-      Max Grütering
+      Familie Grütering
     </p>
     <p>
       Kontakt:<br/>
-      Telefon: +49 251 123456<br/>
-      E-Mail: info@restaurant-gruetering.de
+      Telefon: {CONTACT.phone.display}<br/>
+      E-Mail: {CONTACT.email}
     </p>
     <p>
       Umsatzsteuer-ID:<br/>
-      Umsatzsteuer-Identifikationsnummer gemäß §27 a Umsatzsteuergesetz: DE123456789
+      Umsatzsteuer-Identifikationsnummer gemäß §27 a Umsatzsteuergesetz: [Muss noch ergänzt werden]
     </p>
   </div>
 );

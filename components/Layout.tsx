@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu as MenuIcon, X } from 'lucide-react';
 import { Page } from '../types';
+import { CONTACT } from '../data/contact';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -100,12 +101,30 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
           <div>
             <h4 className="font-serif text-lg mb-4 text-gruetering-gold">Kontakt</h4>
-            <p className="text-gruetering-muted text-sm leading-relaxed">
-              Restaurant Grütering<br />
-              Musterstraße 42<br />
-              48149 Münster<br />
-              +49 251 123456
-            </p>
+            <div className="text-gruetering-muted text-sm leading-relaxed space-y-2">
+              <p className="font-medium text-gruetering-text">Restaurant Grütering</p>
+              <a 
+                href={CONTACT.address.mapsLink} 
+                target="_blank" 
+                rel="noreferrer"
+                className="block hover:text-gruetering-gold transition-colors"
+              >
+                {CONTACT.address.street}<br />
+                {CONTACT.address.city}
+              </a>
+              <a 
+                href={CONTACT.phone.link} 
+                className="block hover:text-gruetering-gold transition-colors"
+              >
+                {CONTACT.phone.display}
+              </a>
+              <a 
+                href={`mailto:${CONTACT.email}`}
+                className="block hover:text-gruetering-gold transition-colors"
+              >
+                {CONTACT.email}
+              </a>
+            </div>
           </div>
           <div className="flex flex-col items-center justify-center">
             <span className="font-serif text-2xl tracking-widest text-gruetering-stone">G</span>
