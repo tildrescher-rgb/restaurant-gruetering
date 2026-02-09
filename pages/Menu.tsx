@@ -1,13 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { MenuItem } from '../types';
-import { getSommelierRecommendation } from '../services/geminiService';
-import { Wine } from 'lucide-react';
 
 const Menu: React.FC = () => {
-  const [activeSommelier, setActiveSommelier] = useState<string | null>(null);
-  const [recommendation, setRecommendation] = useState<string>('');
-  const [loading, setLoading] = useState(false);
-
   const menuData: MenuItem[] = [
     {
       category: "Vorspeisen",
@@ -35,21 +29,6 @@ const Menu: React.FC = () => {
     }
   ];
 
-  const handleSommelierClick = async (dishName: string) => {
-    if (activeSommelier === dishName) {
-      setActiveSommelier(null);
-      return;
-    }
-
-    setActiveSommelier(dishName);
-    setLoading(true);
-    setRecommendation('');
-
-    const rec = await getSommelierRecommendation(dishName);
-    setRecommendation(rec);
-    setLoading(false);
-  };
-
   return (
     <div className="space-y-16 pb-12 animate-fade-in">
       <div className="text-center space-y-4">
@@ -69,27 +48,6 @@ const Menu: React.FC = () => {
                     <span className="text-gruetering-gold font-serif">{item.price}</span>
                   </div>
                   <p className="text-gruetering-muted font-light text-sm">{item.description}</p>
-                  
-                  {/* Sommelier Interaction */}
-                  <div className="mt-3">
-                    <button 
-                      onClick={() => handleSommelierClick(item.name)}
-                      className="flex items-center space-x-2 text-xs text-gruetering-stone hover:text-gruetering-gold transition-colors focus:outline-none"
-                    >
-                      <Wine size={12} />
-                      <span className="tracking-wider uppercase">Virtueller Sommelier</span>
-                    </button>
-                    
-                    {activeSommelier === item.name && (
-                      <div className="mt-3 p-4 border-l border-gruetering-gold/30 bg-gruetering-anthracite/50 text-sm text-gruetering-muted italic">
-                        {loading ? (
-                          <span className="animate-pulse">Der Sommelier überlegt...</span>
-                        ) : (
-                          <p>"{recommendation}"</p>
-                        )}
-                      </div>
-                    )}
-                  </div>
                 </div>
               ))}
             </div>
