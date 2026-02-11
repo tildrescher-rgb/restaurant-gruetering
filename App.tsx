@@ -6,24 +6,30 @@ import Menu from './pages/Menu';
 import Reservation from './pages/Reservation';
 import Events from './pages/Events';
 import Contact from './pages/Contact';
+import Staff from './pages/Staff';
 import { Imprint, Terms } from './pages/Legal';
 import { Page } from './types';
+import { SystemProvider } from './context/SystemContext';
 
 function App() {
   return (
-    <Router>
-      <Layout>
+    <SystemProvider>
+      <Router>
         <Routes>
-          <Route path={Page.HOME} element={<Home />} />
-          <Route path={Page.MENU} element={<Menu />} />
-          <Route path={Page.RESERVATION} element={<Reservation />} />
-          <Route path={Page.EVENTS} element={<Events />} />
-          <Route path={Page.LOCATION} element={<Contact />} />
-          <Route path={Page.IMPRINT} element={<Imprint />} />
-          <Route path={Page.TERMS} element={<Terms />} />
+          {/* Public Routes wrapped in Main Layout */}
+          <Route path={Page.HOME} element={<Layout><Home /></Layout>} />
+          <Route path={Page.MENU} element={<Layout><Menu /></Layout>} />
+          <Route path={Page.RESERVATION} element={<Layout><Reservation /></Layout>} />
+          <Route path={Page.EVENTS} element={<Layout><Events /></Layout>} />
+          <Route path={Page.LOCATION} element={<Layout><Contact /></Layout>} />
+          <Route path={Page.IMPRINT} element={<Layout><Imprint /></Layout>} />
+          <Route path={Page.TERMS} element={<Layout><Terms /></Layout>} />
+          
+          {/* Staff Route - Handles its own Layout internally */}
+          <Route path="/staff/*" element={<Staff />} />
         </Routes>
-      </Layout>
-    </Router>
+      </Router>
+    </SystemProvider>
   );
 }
 

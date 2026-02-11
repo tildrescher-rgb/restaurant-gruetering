@@ -4,6 +4,17 @@ import { Page } from '../types';
 import { IMAGES } from '../data/images';
 
 const Home: React.FC = () => {
+  // Fallback function if image is missing
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>, fallbackType: 'hero' | 'gallery') => {
+    const target = e.currentTarget;
+    target.onerror = null; // Prevent infinite loop
+    if (fallbackType === 'hero') {
+      target.src = "https://images.unsplash.com/photo-1514362545857-3bc16549766b?q=80&w=1600&auto=format&fit=crop";
+    } else {
+      target.src = "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=800&auto=format&fit=crop";
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-[70vh] space-y-16 animate-fade-in overflow-hidden">
       
@@ -13,6 +24,7 @@ const Home: React.FC = () => {
           src={IMAGES.HOME_HERO}
           alt="Atmosphäre im Grütering" 
           className="object-cover w-full h-full opacity-60 hover:scale-105 transition-transform duration-[2s]"
+          onError={(e) => handleImageError(e, 'hero')}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-gruetering-black via-transparent to-transparent"></div>
       </div>
@@ -20,8 +32,8 @@ const Home: React.FC = () => {
       {/* Introduction Text */}
       <div className="max-w-2xl text-center space-y-8">
         <h1 className="font-serif text-3xl md:text-5xl leading-tight text-gruetering-text">
-          Ein ruhiger Raum.<br />
-          <span className="text-gruetering-gold italic">Vor dem ersten Gang.</span>
+          Restaurant Grütering.<br />
+          <span className="text-gruetering-gold italic">...einfack lecker essen.</span>
         </h1>
         
         <p className="text-gruetering-muted leading-loose font-light">
@@ -52,13 +64,23 @@ const Home: React.FC = () => {
               {/* Original Set */}
               {IMAGES.GALLERY.map((src, idx) => (
                 <div key={`g1-${idx}`} className="w-64 h-40 md:w-80 md:h-52 flex-shrink-0 px-2 opacity-70 hover:opacity-100 transition-opacity duration-500">
-                  <img src={src} alt={`Galerie ${idx}`} className="w-full h-full object-cover rounded-sm border border-gruetering-stone/30" />
+                  <img 
+                    src={src} 
+                    alt={`Galerie ${idx}`} 
+                    className="w-full h-full object-cover rounded-sm border border-gruetering-stone/30"
+                    onError={(e) => handleImageError(e, 'gallery')}
+                  />
                 </div>
               ))}
               {/* Duplicate Set for Loop */}
               {IMAGES.GALLERY.map((src, idx) => (
                 <div key={`g2-${idx}`} className="w-64 h-40 md:w-80 md:h-52 flex-shrink-0 px-2 opacity-70 hover:opacity-100 transition-opacity duration-500">
-                  <img src={src} alt={`Galerie ${idx}`} className="w-full h-full object-cover rounded-sm border border-gruetering-stone/30" />
+                  <img 
+                    src={src} 
+                    alt={`Galerie ${idx}`} 
+                    className="w-full h-full object-cover rounded-sm border border-gruetering-stone/30"
+                    onError={(e) => handleImageError(e, 'gallery')}
+                  />
                 </div>
               ))}
            </div>

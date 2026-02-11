@@ -41,7 +41,6 @@ const Contact: React.FC = () => {
               <a href={CONTACT.phone.link} className="text-gruetering-text hover:text-gruetering-gold transition-colors block">
                 {CONTACT.phone.display}
               </a>
-              <p className="text-gruetering-muted text-sm">Ab 16:00 Uhr erreichbar</p>
             </div>
           </div>
 
@@ -77,6 +76,10 @@ const Contact: React.FC = () => {
             src={IMAGES.CONTACT_MAP}
             alt="Karte" 
             className="w-full h-full object-cover opacity-30 mix-blend-overlay group-hover:opacity-40 transition-opacity duration-500"
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=1000&auto=format&fit=crop";
+            }}
          />
          <div className="absolute inset-0 flex items-center justify-center">
             <a 
