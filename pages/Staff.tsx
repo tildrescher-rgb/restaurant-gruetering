@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Routes, Route, Link, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useSystem } from '../context/SystemContext';
 import { LayoutGrid, Calendar, Settings, LogOut, CheckCircle, XCircle, Clock, Search, List, Edit2, ShieldAlert, Plus, Users, Trash2, History, Save } from 'lucide-react';
 import { Reservation, ReservationStatus, Table } from '../types';
@@ -10,11 +10,13 @@ const LoginScreen = () => {
   const { login } = useSystem();
   const [pin, setPin] = useState('');
   const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (login(pin)) {
       setError(false);
+      navigate('/staff/dashboard');
     } else {
       setError(true);
       setPin('');
